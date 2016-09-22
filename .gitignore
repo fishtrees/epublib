@@ -9,3 +9,4 @@ epublib-core/.settings
 epublib-tools/.settings/
 *~
 /target/
+nbactions.xml

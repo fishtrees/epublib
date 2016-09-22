@@ -76,8 +76,16 @@ public abstract class AbstractEpubWriter implements EpubWriter {
             return;
         }
 
+        String href = resource.getHref();
+
+        if (href.contains("#")) {
+            href = href.substring(0, href.indexOf("#"));
+        }
+        
+        System.out.println("href: " + href);
+
         try {
-            resultStream.putNextEntry(new ZipEntry("OEBPS/" + resource.getHref()));
+            resultStream.putNextEntry(new ZipEntry("OEBPS/" + href));
             InputStream inputStream = resource.getInputStream();
             IOUtil.copy(inputStream, resultStream);
             inputStream.close();
