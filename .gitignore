@@ -10,3 +10,5 @@ epublib-tools/.settings/
 *~
 /target/
 nbactions.xml
+.project
+.settings/
