@@ -108,6 +108,7 @@ public class EpubReader {
     	Resource ncxResource = processNcxResource(packageResource, result);
     	result.setNcxResource(ncxResource);
     	result = postProcessBook(result);
+        result.setResources(resources);
     	return result;
     }
     

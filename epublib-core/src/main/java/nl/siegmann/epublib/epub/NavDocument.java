@@ -225,7 +225,7 @@ public class NavDocument {
             Resource resource = ref.getResource();
             serializer.startTag(null, "li");
             serializer.startTag(null, "a");
-            serializer.attribute(null, "href", resource.getHref());
+            serializer.attribute(null, "href", resource.getTocHref().replace(resource.getOriginalHref(), resource.getHref()));
             serializer.text(ref.getTitle());
             serializer.endTag(null, "a");
             serializer.endTag(null, "li");

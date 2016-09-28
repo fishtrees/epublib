@@ -42,7 +42,7 @@ public class Resources implements Serializable {
 	public Resource add(Resource resource) {
 		fixResourceHref(resource);
 		fixResourceId(resource);
-		this.resources.put(resource.getHref(), resource);
+		this.resources.put(resource.getTocHref(), resource);
 		return resource;
 	}
 
@@ -177,6 +177,7 @@ public class Resources implements Serializable {
 				href = createHref(resource.getMediaType(), (++i));
 			}
 			resource.setHref(href);
+                        resource.setTocHref(href);
 		}
 	}
 	

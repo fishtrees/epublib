@@ -29,6 +29,7 @@ public class Resource implements Serializable {
 	private String title;
 	private String href;
 	protected String originalHref;
+        private String tocHref;
 	private MediaType mediaType;
 	private String inputEncoding = Constants.CHARACTER_ENCODING;
 	protected byte[] data;
@@ -69,7 +70,7 @@ public class Resource implements Serializable {
 	 * @param href The location of the resource within the epub. Example: "chapter1.html".
 	 */
 	public Resource(byte[] data, String href) {
-		this(null, data, href, MediatypeService.determineMediaType(href), Constants.CHARACTER_ENCODING);
+            this(null, data, href, MediatypeService.determineMediaType(href), Constants.CHARACTER_ENCODING);
 	}
 	
 	/**
@@ -82,7 +83,7 @@ public class Resource implements Serializable {
 	 * @param href The location of the resource within the epub. Example: "cover.jpg".
 	 */
 	public Resource(Reader in, String href) throws IOException {
-		this(null, IOUtil.toByteArray(in, Constants.CHARACTER_ENCODING), href, MediatypeService.determineMediaType(href), Constants.CHARACTER_ENCODING);
+            this(null, IOUtil.toByteArray(in, Constants.CHARACTER_ENCODING), href, MediatypeService.determineMediaType(href), Constants.CHARACTER_ENCODING);
 	}
 	
 	/**
@@ -102,7 +103,12 @@ public class Resource implements Serializable {
 	 * @param href The location of the resource within the epub. Example: "cover.jpg".
 	 */
 	public Resource(InputStream in, String href) throws IOException {
-		this(null, IOUtil.toByteArray(in), href, MediatypeService.determineMediaType(href));
+            this(null, IOUtil.toByteArray(in), href, MediatypeService.determineMediaType(href));
+	}
+        
+        public Resource(InputStream in, String href, String tocHref) throws IOException {
+            this(null, IOUtil.toByteArray(in), href, MediatypeService.determineMediaType(href));
+            this.tocHref = tocHref;
 	}
 	
 	/**
@@ -115,7 +121,7 @@ public class Resource implements Serializable {
 	 * @param mediaType The resources MediaType
 	 */
 	public Resource(String id, byte[] data, String href, MediaType mediaType) {
-		this(id, data, href, mediaType, Constants.CHARACTER_ENCODING);
+            this(id, data, href, mediaType, Constants.CHARACTER_ENCODING);
 	}
 
 
@@ -133,6 +139,7 @@ public class Resource implements Serializable {
 		this.id = id;
 		this.href = href;
 		this.originalHref = href;
+                this.tocHref = href;
 		this.mediaType = mediaType;
 		this.inputEncoding = inputEncoding;
 		this.data = data;
@@ -311,4 +318,18 @@ public class Resource implements Serializable {
 				"href", href,
 				"size", (data == null ? 0 : data.length));
 	}
+
+    public String getTocHref() {
+        return tocHref;
+    }      
+
+    public void setTocHref(String tocHref) {
+        this.tocHref = tocHref;
+    }
+
+    public String getOriginalHref() {
+        return originalHref;
+    }
+    
+    
 }
