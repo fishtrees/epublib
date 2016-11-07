@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import nl.siegmann.epublib.Constants;
 import nl.siegmann.epublib.service.MediatypeService;
@@ -211,9 +213,27 @@ public class Resources implements Serializable {
 	public Map<String, Resource> getResourceMap() {
 		return resources;
 	}
+        
+        public Collection<Resource> getAll() {
+            return getAll(false);
+        }
 	
-	public Collection<Resource> getAll() {
-		return resources.values();
+	public Collection<Resource> getAll(boolean unique) {
+            if (unique) {
+            ArrayList<Resource> temp = new ArrayList<>();
+            Set<String> set = new HashSet<>();
+            
+            for (Resource r : resources.values()) {
+                if (!set.contains(r.getHref())) {
+                    temp.add(r);
+                    set.add(r.getHref());
+                }
+            }
+            
+            return temp;
+            } else {
+                return resources.values();
+            }
 	}
 	
 	

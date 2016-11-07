@@ -104,7 +104,17 @@ public class Spine implements Serializable {
 		if (spineReferences == null) {
 			this.spineReferences = new ArrayList<SpineReference>();
 		}
-		spineReferences.add(spineReference);
+                
+                int i = 0;
+                
+                while ( i < spineReferences.size() && !spineReferences.get(i).getResource().getHref().equals(spineReference.getResource().getHref())) {
+                    i ++;
+                }
+                
+                if ( i >= spineReferences.size()) {
+                    spineReferences.add(spineReference);
+                }
+                
 		return spineReference;
 	}
 

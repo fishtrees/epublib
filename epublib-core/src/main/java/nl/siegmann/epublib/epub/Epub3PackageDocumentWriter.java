@@ -91,7 +91,7 @@ public class Epub3PackageDocumentWriter extends PackageDocumentBase {
     private static void writeManifest(Book book, Epub3Writer epubWriter, XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException, ParserConfigurationException, SAXException {
         serializer.startTag(null, OPFTags.manifest);
 
-        for (Resource resource : getAllResourcesSortById(book)) {
+        for (Resource resource : removeDuplicateResources(getAllResourcesSortById(book))) {
             writeItem(book, resource, serializer);
         }
 
@@ -109,7 +109,30 @@ public class Epub3PackageDocumentWriter extends PackageDocumentBase {
                 return resource1.getId().compareToIgnoreCase(resource2.getId());
             }
         });
+        
         return allResources;
+    }
+    
+    private static List<Resource> removeDuplicateResources(List<Resource> resources) {
+        List<Resource> temp = new ArrayList();
+        
+        for (Resource r : resources) {
+            if (!containsDuplicate(temp, r)) {
+                temp.add(r);
+            }
+        }
+        
+        return temp;
+    }
+    
+    private static boolean containsDuplicate(List<Resource> resources, Resource resource) {
+        int index = 0;
+        
+        while (index < resources.size() && !resources.get(index).getHref().equals(resource.getHref())) {
+            index ++;
+        }
+        
+        return index < resources.size();
     }
 
     /**

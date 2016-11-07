@@ -61,7 +61,7 @@ public class NavDocument {
         String docAuthor = "docAuthor";
         String head = "head";
     }
-    
+
     private interface EPUBTags {
 
         String type = "type";
@@ -77,7 +77,7 @@ public class NavDocument {
         String clazz = "class";
         String version = "version";
     }
-    
+
     public static Resource read(Book book, EpubReader epubReader) {
         Resource ncxResource = null;
         if (book.getSpine().getTocResource() == null) {
@@ -192,7 +192,7 @@ public class NavDocument {
 
     public static void write(XmlSerializer serializer, List<Identifier> identifiers, String title, List<CreatorContributor> authors, TableOfContents tableOfContents) throws IllegalArgumentException, IllegalStateException, IOException {
         serializer.startDocument(Constants.CHARACTER_ENCODING, false);
-        
+
         serializer.startTag(null, "html");
         serializer.attribute(null, "xmlns", "http://www.w3.org/1999/xhtml");
         writeHead(serializer, title);
@@ -201,39 +201,54 @@ public class NavDocument {
 
         serializer.endDocument();
     }
-    
+
     private static void writeHead(XmlSerializer serializer, String title) throws IOException {
         serializer.startTag(null, "head");
-        
+
         serializer.startTag(null, "title");
         serializer.text(title);
         serializer.endTag(null, "title");
-                
+
         serializer.endTag(null, "head");
     }
-    
+
     private static void writeBody(XmlSerializer serializer, TableOfContents tableOfContents) throws IOException {
         serializer.startTag(null, "body");
         serializer.attribute(NAMESPACE_EPUB, EPUBTags.type, "frontmatter");
-        
+
         serializer.startTag(null, "nav");
         serializer.attribute(NAMESPACE_EPUB, EPUBTags.type, "toc");
-        
+
         serializer.startTag(null, "ol");
-        
+
         for (TOCReference ref : tableOfContents.getTocReferences()) {
-            Resource resource = ref.getResource();
-            serializer.startTag(null, "li");
-            serializer.startTag(null, "a");
-            serializer.attribute(null, "href", resource.getTocHref().replace(resource.getOriginalHref(), resource.getHref()));
-            serializer.text(ref.getTitle());
-            serializer.endTag(null, "a");
-            serializer.endTag(null, "li");
+            writeTOCReference(serializer, ref);
         }
-        
+
         serializer.endTag(null, "ol");
         serializer.endTag(null, "nav");
-        
+
         serializer.endTag(null, "body");
+    }
+
+    private static void writeTOCReference(XmlSerializer serializer, TOCReference ref) throws IOException {
+        Resource resource = ref.getResource();
+        serializer.startTag(null, "li");
+        serializer.startTag(null, "a");
+        serializer.attribute(null, "href", resource.getTocHref().replace(resource.getOriginalHref(), resource.getHref()));
+        serializer.text(ref.getTitle());
+        serializer.endTag(null, "a");
+        
+        if (!ref.getChildren().isEmpty()) {
+            serializer.startTag(null, "ol");
+            
+            for (TOCReference subRef : ref.getChildren()) {
+                writeTOCReference(serializer, subRef);
+            }
+            
+            serializer.endTag(null, "ol");
+        }
+        
+        serializer.endTag(null, "li");
     }
 }

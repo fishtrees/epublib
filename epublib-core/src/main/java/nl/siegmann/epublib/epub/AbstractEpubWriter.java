@@ -59,7 +59,7 @@ public abstract class AbstractEpubWriter implements EpubWriter {
     }
 
     protected void writeResources(Book book, ZipOutputStream resultStream) throws IOException {
-        for (Resource resource : book.getResources().getAll()) {
+        for (Resource resource : book.getResources().getAll(true)) {
             writeResource(resource, resultStream);
         }
     }
