@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eu.freme</groupId>
+    <groupId>eu.freme-project</groupId>
     <artifactId>epublib-core</artifactId>
     <name>epublib-core</name>
     <description>A java library for reading/writing/manipulating epub files</description>
@@ -13,7 +13,7 @@
     <version>0.4-SNAPSHOT</version>
 	
     <parent>
-        <groupId>eu.freme</groupId>
+        <groupId>eu.freme-project</groupId>
         <artifactId>epublib-parent</artifactId>
         <version>0.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
