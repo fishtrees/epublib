@@ -126,6 +126,5 @@
 		<connection>scm:git:git@github.com:freme-project/epublib.git</connection>
 		<url>scm:git:git@github.com/freme-project:epublib.git</url>
 		<developerConnection>scm:git:git@github.com:freme-project/epublib.git</developerConnection>
-		<tag>HEAD</tag>
 	</scm>
 </project>
