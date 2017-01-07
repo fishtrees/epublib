@@ -143,6 +143,15 @@
 		</repository>
 	</distributionManagement>
 
+	<repositories>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<scm>
 		<connection>scm:git:git@github.com:freme-project/epublib.git</connection>
