@@ -8,7 +8,7 @@
 	<artifactId>epublib-parent</artifactId>
 	<name>epublib-parent</name>
 	<packaging>pom</packaging>
-	<version>0.5</version>
+	<version>0.6-SNAPSHOT</version>
 	<description>A java library for reading/writing/manipulating epub files</description>
 	<url>http://www.siegmann.nl/epublib</url>
 	<inceptionYear>2009</inceptionYear>
@@ -184,6 +184,6 @@
 		<connection>scm:git:git@github.com:freme-project/epublib.git</connection>
 		<url>scm:git:git@github.com/freme-project:epublib.git</url>
 		<developerConnection>scm:git:git@github.com:freme-project/epublib.git</developerConnection>
-	  <tag>epublib-parent-0.5</tag>
+	  <tag>HEAD</tag>
   </scm>
 </project>
