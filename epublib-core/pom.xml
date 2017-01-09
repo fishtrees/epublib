@@ -10,12 +10,12 @@
 	<description>A java library for reading/writing/manipulating epub files</description>
 	<url>http://www.siegmann.nl/epublib</url>
 	<inceptionYear>2009</inceptionYear>
-	<version>0.5-SNAPSHOT</version>
+	<version>0.5</version>
 
 	<parent>
 		<groupId>eu.freme-project</groupId>
 		<artifactId>epublib-parent</artifactId>
-		<version>0.5-SNAPSHOT</version>
+		<version>0.5</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -108,5 +108,6 @@
 		<connection>scm:git:git@github.com:freme-project/epublib.git</connection>
 		<url>scm:git:git@github.com:freme-project/epublib.git</url>
 		<developerConnection>scm:git:git@github.com:freme-project/epublib.git</developerConnection>
-	</scm>
+	  <tag>epublib-parent-0.5</tag>
+  </scm>
 </project>
