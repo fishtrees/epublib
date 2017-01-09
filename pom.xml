@@ -8,7 +8,7 @@
 	<artifactId>epublib-parent</artifactId>
 	<name>epublib-parent</name>
 	<packaging>pom</packaging>
-	<version>0.6-SNAPSHOT</version>
+	<version>0.5-SNAPSHOT</version>
 	<description>A java library for reading/writing/manipulating epub files</description>
 	<url>http://www.siegmann.nl/epublib</url>
 	<inceptionYear>2009</inceptionYear>
@@ -81,29 +81,26 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
-				<configuration>
-					<autoVersionSubmodules>false</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy nexus-staging:release</goals>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
+				<version>1.6.3</version>
 				<extensions>true</extensions>
-				<configuration>
+					<configuration>
 					<serverId>ossrh</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<releaseProfiles>release</releaseProfiles>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 	<reporting>
@@ -136,11 +133,40 @@
 						</executions>
 					</plugin>
 
-				</plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<additionalparam>-Xdoclint:none</additionalparam>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.0.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+			</plugins>
 			</build>
 		</profile>
 	</profiles>
-
 
 	<distributionManagement>
 		<snapshotRepository>
@@ -153,15 +179,6 @@
 		</repository>
 	</distributionManagement>
 
-	<repositories>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<scm>
 		<connection>scm:git:git@github.com:freme-project/epublib.git</connection>
